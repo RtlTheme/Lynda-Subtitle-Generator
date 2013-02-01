@@ -22,7 +22,7 @@ include('lib/simple_html_dom.php');
 
 function pure_str($str)
 {
-	return trim(str_replace(array('\\','/',':','*','?','"'), '', $str));
+	return trim(str_replace(array('\\','/',':','*','?','"','<','>','|'), '', $str));
 }
 
 function to_dir($path)
@@ -34,6 +34,10 @@ function to_dir($path)
 
 function to_srt($data, $path, $title)
 {
+	if (function_exists('mb_convert_encoding')) {
+		$data = mb_convert_encoding($data, 'UTF-8', 'HTML-ENTITIES');
+	}
+	
 	file_put_contents(rtrim($path, '/').'/'.$title.'.srt', $data) or die('Unable to write the data.');
 
 	# Change permission of folder according to security issues.
