@@ -3,7 +3,7 @@
  * Lynda Subtitle Generator - PHP application
  * https://github.com/qolami/Lynda-Subtitle-Generator
  * Copyright 2013 Hashem Qolami <hashem@qolami.com>
- * Version 0.6.0
+ * Version 0.6.1
  * Released under the MIT and GPL licenses.
 */
 
@@ -11,7 +11,7 @@
 define('DIR', './subtitle');
 
 # App version
-$version = '0.6.0';
+$version = '0.6.1';
 
 # Custom output
 function e($msg, $err=FALSE)
@@ -67,10 +67,18 @@ function to_srt($data, $path, $title)
 	@chmod($path, 0755);
 }
 
-function process_chapter($e, $path)
+function parse_chapter_name($ch, $i)
+{
+	$i = $i<10?"0$i":$i;
+	return "$i. " . preg_replace("/^\d+\. /", '', $ch);
+}
+
+function process_chapter($e, $path, $chno)
 {
 	$chapter = $e->find('span.chTitle', 0)->plaintext;
 	$sections = $e->find('tr.showToggleDeltails');
+
+	$chapter = parse_chapter_name($chapter, $chno);
 
 	$dir = to_dir( $path .'/'. str_pure($chapter) );
 
@@ -111,8 +119,8 @@ $chs = $html->find('td.tChap');
 # Course path
 $cpath = get_path($url);
 
-foreach ($chs as $ch) {
-	process_chapter($ch, $cpath);
+for ($i=0; $i<count($chs); $i++) {
+	process_chapter($chs[$i], $cpath, $i);
 }
 
 # Clear DOM object
