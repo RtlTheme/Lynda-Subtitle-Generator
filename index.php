@@ -3,27 +3,44 @@
  * Lynda Subtitle Generator - PHP application
  * https://github.com/qolami/Lynda-Subtitle-Generator
  * Copyright 2013 Hashem Qolami <hashem@qolami.com>
- * Version 0.5.1
+ * Version 0.6.0
  * Released under the MIT and GPL licenses.
 */
-
-# Get transcript url
-$url = $_GET['url'] or die('Insert a URL to grab transcript.');
-
-# No time limit, RUN forever BABY :D
-set_time_limit(0);
 
 # Path to subtitle folder
 define('DIR', './subtitle');
 
+# App version
+$version = '0.6.0';
+
+# Custom output
+function e($msg, $err=FALSE)
+{
+	global $version;
+	include 'inc/result.php';
+	exit;
+}
+
+# Get transcript url
+$url = $_GET['url'] or e('Insert a URL to grab transcript.', TRUE);
+
+# No time limit
+set_time_limit(0);
+
 # Load HTML DOM library
-include('lib/simple_html_dom.php');
+include 'lib/simple_html_dom.php';
 
 
 function get_path($url)
 {
-	$param = explode('/', preg_replace('#^https?://#i', '', $url));
-	return rtrim(DIR, '/') ."/$param[1]-$param[2]";
+	if ( @preg_match('#^https?://(.*)#i', $url, $param) ) {
+		$param = explode('/', $param[1]);
+		return rtrim(DIR, '/')."/$param[1]-$param[2]";
+
+	} else { # local address
+		$param = end(explode('/', $url));
+		return rtrim(DIR, '/').'/'.basename($param, strrchr($param, '.'));
+	}
 }
 
 function str_pure($str)
@@ -44,7 +61,7 @@ function to_srt($data, $path, $title)
 		$data = mb_convert_encoding($data, 'UTF-8', 'HTML-ENTITIES');
 	}
 	
-	file_put_contents(rtrim($path, '/').'/'.$title.'.srt', $data) or die('Unable to write the data.');
+	file_put_contents(rtrim($path, '/').'/'.$title.'.srt', $data) or e('Unable to write the data.', TRUE);
 
 	# Change permission of folder according to security issues.
 	@chmod($path, 0755);
@@ -57,10 +74,10 @@ function process_chapter($e, $path)
 
 	$dir = to_dir( $path .'/'. str_pure($chapter) );
 
-	$j = 0;
+	$j = 1;
 	foreach ($sections as $section) {
 		$num = $j<10?"0$j":$j;
-		$title = "$num ".$section->find('a', 0)->plaintext;
+		$title = "$num. ".$section->find('a', 0)->plaintext;
 		$rows = $section->find('td.tC');
 		$sub = '';
 
@@ -79,8 +96,9 @@ function process_chapter($e, $path)
 	}
 }
 
-# Course path
-$path = get_path($url);
+############################################################
+######                   Controller                   ######
+############################################################
 
 # Make an instance
 $html = new simple_html_dom();
@@ -90,14 +108,18 @@ $html->load_file($url);
 
 $chs = $html->find('td.tChap');
 
-foreach ($chs as $ch) {
-	process_chapter($ch, $path);
-}
+# Course path
+$cpath = get_path($url);
 
-echo "Subtitles have been generated successfully! located at: $path";
+foreach ($chs as $ch) {
+	process_chapter($ch, $cpath);
+}
 
 # Clear DOM object
 $html->clear();
 
 # Free memory
 unset($html);
+
+e("Subtitles have been generated successfully!<br>Located at: <strong>$cpath</strong>");
+?>
