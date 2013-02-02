@@ -3,7 +3,7 @@
  * Lynda Subtitle Generator - PHP application
  * https://github.com/qolami/Lynda-Subtitle-Generator
  * Copyright 2013 Hashem Qolami <hashem@qolami.com>
- * Version 0.5
+ * Version 0.5.1
  * Released under the MIT and GPL licenses.
 */
 
@@ -20,7 +20,13 @@ define('DIR', './subtitle');
 include('lib/simple_html_dom.php');
 
 
-function pure_str($str)
+function get_path($url)
+{
+	$param = explode('/', preg_replace('#^https?://#i', '', $url));
+	return rtrim(DIR, '/') ."/$param[1]-$param[2]";
+}
+
+function str_pure($str)
 {
 	return trim(str_replace(array('\\','/',':','*','?','"','<','>','|'), '', $str));
 }
@@ -44,12 +50,12 @@ function to_srt($data, $path, $title)
 	@chmod($path, 0755);
 }
 
-function process_chapter($e)
+function process_chapter($e, $path)
 {
 	$chapter = $e->find('span.chTitle', 0)->plaintext;
 	$sections = $e->find('tr.showToggleDeltails');
 
-	$dir = to_dir( rtrim(DIR, '/').'/'. pure_str($chapter) );
+	$dir = to_dir( $path .'/'. str_pure($chapter) );
 
 	$j = 0;
 	foreach ($sections as $section) {
@@ -68,11 +74,13 @@ function process_chapter($e)
 {$text}\n\r\n\r\n\r";
 		}
 
-		to_srt( $sub, $dir, pure_str($title) );
+		to_srt( $sub, $dir, str_pure($title) );
 		$j++;
 	}
 }
 
+# Course path
+$path = get_path($url);
 
 # Make an instance
 $html = new simple_html_dom();
@@ -83,10 +91,10 @@ $html->load_file($url);
 $chs = $html->find('td.tChap');
 
 foreach ($chs as $ch) {
-	process_chapter($ch);
+	process_chapter($ch, $path);
 }
 
-echo "Subtitles have been generated successfully! located at: ".DIR;
+echo "Subtitles have been generated successfully! located at: $path";
 
 # Clear DOM object
 $html->clear();
