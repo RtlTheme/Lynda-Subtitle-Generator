@@ -39,9 +39,9 @@ Desktop.ini
 ##################
 
 # folder
-subtitle/*
+subtitles/*
 
 # files
 .srt
-!subtitle/index.html
-!subtitle/.htaccess
+!subtitles/index.html
+!subtitles/.htaccess
