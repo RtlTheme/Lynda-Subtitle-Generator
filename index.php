@@ -5,7 +5,7 @@
  * Copyright 2013 Hashem Qolami <hashem@qolami.com>
  * Version 0.7.0
  * Released under the MIT and GPL licenses.
-*/
+ */
 
 # Path to subtitle folder
 define('DIR', 'subtitles');
@@ -24,14 +24,14 @@ function e($msg, $err=FALSE)
 # Get transcript url
 $url = $_GET['url'] or e('Insert a URL to grab transcript.', TRUE);
 
-// # API
+# API
 // $api = !!$_GET['api'] or FALSE;
 
-// # No time limit
+# No time limit
 set_time_limit(0);
 @ini_set("max_execution_time", 0);
 
-// # Load libraries
+# Load libraries
 include 'lib/simple_html_dom.php';
 include 'lib/CreateZipFile.inc.php';
 

@@ -4,12 +4,8 @@
 	<meta charset="UTF-8">
 	<title>Lynda Subtitle Generator v<?php echo $version; ?></title>
 	<style>
-		.err {
-			color: #F30;
-		}
-		.success {
-			color: #0B0;
-		}
+		.err { color: #F30; }
+		.success { color: #0B0; }
 	</style>
 </head>
 <body>
