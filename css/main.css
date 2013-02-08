@@ -103,6 +103,7 @@ body {
 	background-position:bottom;
 	background-repeat:repeat-x;
 	font-family:Tahoma, Geneva, sans-serif;
+    -webkit-font-smoothing: subpixel-antialiased;
 }
 
 div#head {
@@ -199,10 +200,11 @@ div#back{
 
 div#inputs input{
 	width:490px;
-	height:39px;	
-	background-image:url(../img/input-size-bg.png);
-	background-position:-3px 45px;
-	border:0;
+	height:39px;
+    font-size: 1.4em;
+    background-color: transparent;
+    border:0;
+    outline: none;
 	color:#000;
 	float:left;
 	margin-top:7px;
@@ -215,6 +217,9 @@ p.desc {
 	font-size:12px;
 }
 
+p.desc span {
+    color:#999;
+}
 
 div#front a{
 	display:block;

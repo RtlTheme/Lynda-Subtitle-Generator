@@ -6,12 +6,13 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Lynda.com Subtitle Generator</title>
-        <meta name="description" content="">
+        <title>Lynda.com Subtitle Generator v<?php echo $version; ?></title>
+        <meta name="description" content="A simple PHP application to generate SRT subtitles for Lynda.com courses">
         <meta name="viewport" content="width=device-width">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
+        <link type="text/plain" rel="author" href="humans.txt">
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
@@ -24,7 +25,7 @@
         <!-- Add your site or application content here -->
         <div id="head">
         	<div class="headCenter toCenter">
-        		<a href="#"><h1><b>Lynda</b>.com Subtitle Generator</h1></a>
+        		<a href="#"><h1><b>Lynda</b>.com Subtitle Generator v<?php echo $version; ?></h1></a>
             </div>
         </div>	
        	<div class="content toCenter">
@@ -50,12 +51,12 @@
             
             </div>
             
-            <p class="desc">Enter the URL at the top, but attention to the sample please! <br /> sample: http://www.lynda.com/Bootstrap-tutorials/Up-Running-Bootstrap/110885-2/transcript</p>
+            <p class="desc">Enter the URL at the top, but pay attention to the sample please! <br /> sample: <span>http://www.lynda.com/Bootstrap-tutorials/Up-Running-Bootstrap/110885-2/transcript</span></p>
         </div>
         
         <div class="footer">
-        	<p>getlyndasub.ir is in no way affiliated with Lynda.com.<br />
-Copyright © 2013, Web design and development by <a href="https://github.com/qolami">@qolami</a>,<a href="https://github.com/aliab">@aliab</a> | <a href="https://github.com/qolami/Lynda-Subtitle-Generator">Source Code on github</a></p>
+        	<p><a href="http://lyndasub.ir/">lyndasub.ir</a> is in no way affiliated with Lynda.com.<br />
+Copyright © 2013, Web design and development by <a href="https://github.com/qolami">@qolami</a>, <a href="https://github.com/aliab">@aliab</a> | <a href="https://github.com/qolami/Lynda-Subtitle-Generator">Source Code on github</a></p>
         </div>
         
         <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script> --> 

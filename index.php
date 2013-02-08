@@ -3,38 +3,50 @@
  * Lynda Subtitle Generator - PHP application
  * https://github.com/qolami/Lynda-Subtitle-Generator
  * Copyright 2013 Hashem Qolami <hashem@qolami.com>
- * Version 0.7.1
+ * Version 0.8.0
  * Released under the MIT and GPL licenses.
  */
+
+# App version
+$version = '0.8.0';
+
+if (! isset($_GET['url'])) {
+	include 'inc/view.php';
+	exit;
+}
 
 # Path to subtitle folder
 define('DIR', 'subtitles');
 
-# App version
-$version = '0.7.1';
-
-# Custom output
-function e($msg, $err=FALSE)
-{
-	global $version;
-	include 'inc/result.php';
-	exit;
-}
-
 # Get transcript url
-$url = $_GET['url'] or e('Insert a URL to grab transcript.', TRUE);
+$url = $_GET['url'];
 
 # API
-// $api = !!$_GET['api'] or FALSE;
+$api = isset($_GET['api']) ? !!$_GET['api'] : FALSE;
 
 # No time limit
 set_time_limit(0);
 @ini_set("max_execution_time", 0);
 
-# Load libraries
+# Load library
 include 'lib/simple_html_dom.php';
-include 'lib/CreateZipFile.inc.php';
 
+
+# Custom output
+function e($msg, $err=FALSE)
+{
+	global $api;
+	if ($api == TRUE) {
+		$key = !!$err ? 'error' : 'success';
+		$data[$key] = $msg;
+		header('Content-Type: application/json');
+		echo json_encode($data);
+	} else {
+		header('Content-Type: text/plain');
+		echo $msg;
+	}
+	exit;
+}
 
 function get_path($url)
 {
@@ -65,7 +77,7 @@ function to_srt($data, $path, $title)
 		$data = mb_convert_encoding($data, 'UTF-8', 'HTML-ENTITIES');
 	}
 	
-	$zip->addFile($data, rtrim($path, '/').'/'.$title.'.srt');
+	$zip->addFromString($path.'/'.$title.'.srt', $data);
 }
 
 function parse_chapter_name($ch, $i)
@@ -76,15 +88,12 @@ function parse_chapter_name($ch, $i)
 
 function process_chapter($e, $path, $chno)
 {
-	global $zip;
-
 	$chapter = $e->find('span.chTitle', 0)->plaintext;
 	$sections = $e->find('tr.showToggleDeltails');
 
 	$chapter = parse_chapter_name($chapter, $chno);
 
 	$dir = $path .'/'. str_pure($chapter);
-	$zip->addDirectory($dir);
 
 	$j = 1;
 	foreach ($sections as $section) {
@@ -126,7 +135,7 @@ function get_file_address($filename)
 
 # Make instances
 $html = new simple_html_dom();
-$zip = new CreateZipFile;
+$zip = new ZipArchive;
 
 # Load the DOM
 $html->load_file($url);
@@ -136,8 +145,26 @@ $chs = $html->find('td.tChap') or e("Unable to find chapters on: <strong><i>$url
 # Course path
 $path = get_path($url);
 
-for ($i=0; $i<count($chs); $i++) {
-	process_chapter($chs[$i], $path['course'], $i);
+$zip_file = $path['full'].'.zip';
+
+if ($zip->open($zip_file, ZipArchive::CREATE) === TRUE) {
+
+	for ($i=0; $i<count($chs); $i++) {
+		process_chapter($chs[$i], $path['course'], $i);
+	}
+
+	$zip->close();
+
+	$output = array(
+		'data'	=> get_file_address($zip_file), 
+		'err'	=> FALSE
+	);
+
+} else {
+	$output = array(
+		'data'	=> 'Zip compression failed!', 
+		'err'	=> TRUE
+	);
 }
 
 # Clear DOM object
@@ -146,15 +173,4 @@ $html->clear();
 # Free memory
 unset($html);
 
-$zip_file = $path['full'].'.zip';
-
-# Write to file, force binary mode
-$file = fopen($zip_file, 'wb');
-$out = fwrite($file, $zip->getZippedfile());
-fclose($file);
-
-// $zip->forceDownload($zip_file);
-// @unlink($zip_file);
-
-$link = get_file_address($zip_file);
-e("Subtitles have been generated successfully!<br>Located at: <a href='$link'><strong>$zip_file</strong></a>");
+e($output['data'], $output['err']);
