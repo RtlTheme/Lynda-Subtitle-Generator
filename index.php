@@ -3,7 +3,7 @@
  * Lynda Subtitle Generator - PHP application
  * https://github.com/qolami/Lynda-Subtitle-Generator
  * Copyright 2013 Hashem Qolami <hashem@qolami.com>
- * Version 0.7.0
+ * Version 0.7.1
  * Released under the MIT and GPL licenses.
  */
 
@@ -11,7 +11,7 @@
 define('DIR', 'subtitles');
 
 # App version
-$version = '0.7.0';
+$version = '0.7.1';
 
 # Custom output
 function e($msg, $err=FALSE)
@@ -112,8 +112,12 @@ function process_chapter($e, $path, $chno)
 
 function get_file_address($filename)
 {
-		$pos = strpos($_SERVER['REQUEST_URI'], $_SERVER['QUERY_STRING']);
-		return substr($_SERVER['REQUEST_URI'], 0, $pos - 1) . $filename;
+	$pos = strpos($_SERVER['REQUEST_URI'], $_SERVER['QUERY_STRING']);
+	$addr = substr($_SERVER['REQUEST_URI'], 0, $pos - 1);
+	if ($pos = strrpos($addr, '.php')) {
+		$addr = substr($addr, 0, strrpos($addr, basename($addr)));
+	}
+	return $addr . $filename;
 }
 
 ############################################################
