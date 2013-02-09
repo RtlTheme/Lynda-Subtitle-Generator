@@ -3,12 +3,12 @@
  * Lynda Subtitle Generator - PHP application
  * https://github.com/qolami/Lynda-Subtitle-Generator
  * Copyright 2013 Hashem Qolami <hashem@qolami.com>
- * Version 0.8.0
+ * Version 0.8.1
  * Released under the MIT and GPL licenses.
  */
 
 # App version
-$version = '0.8.0';
+$version = '0.8.1';
 
 if (! isset($_GET['url'])) {
 	include 'inc/view.php';
@@ -17,20 +17,6 @@ if (! isset($_GET['url'])) {
 
 # Path to subtitle folder
 define('DIR', 'subtitles');
-
-# Get transcript url
-$url = $_GET['url'];
-
-# API
-$api = isset($_GET['api']) ? !!$_GET['api'] : FALSE;
-
-# No time limit
-set_time_limit(0);
-@ini_set("max_execution_time", 0);
-
-# Load library
-include 'lib/simple_html_dom.php';
-
 
 # Custom output
 function e($msg, $err=FALSE)
@@ -47,6 +33,20 @@ function e($msg, $err=FALSE)
 	}
 	exit;
 }
+
+# Get transcript url
+$url = $_GET['url'] or e('Insert a URL to generate subtitles', TRUE);
+
+# API
+$api = isset($_GET['api']) ? !!$_GET['api'] : FALSE;
+
+# No time limit
+set_time_limit(0);
+@ini_set("max_execution_time", 0);
+
+# Load library
+include 'lib/simple_html_dom.php';
+
 
 function get_path($url)
 {
