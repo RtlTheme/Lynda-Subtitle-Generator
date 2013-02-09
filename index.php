@@ -3,12 +3,12 @@
  * Lynda Subtitle Generator - PHP application
  * https://github.com/qolami/Lynda-Subtitle-Generator
  * Copyright 2013 Hashem Qolami <hashem@qolami.com>
- * Version 0.8.1
+ * Version 0.8.2
  * Released under the MIT and GPL licenses.
  */
 
 # App version
-$version = '0.8.1';
+$version = '0.8.2';
 
 if (! isset($_GET['url'])) {
 	include 'inc/view.php';
@@ -47,6 +47,20 @@ set_time_limit(0);
 # Load library
 include 'lib/simple_html_dom.php';
 
+
+function get_transcript($url)
+{
+	$pattern[0]		= "#^(.+).html$#i";
+	$replacement[0]	= "$1/transcript";
+
+	$pattern[1]		= "#^(.+)(\d)/?$#i";
+	$replacement[1]	= "$1$2/transcript";
+
+	$pattern[2]		= "#^(.+)(/transcript)$#i";
+	$replacement[2]	= "$1$2";
+
+	return preg_replace($pattern, $replacement, $url);
+}
 
 function get_path($url)
 {
@@ -140,8 +154,11 @@ function get_file_address($filename)
 $html = new simple_html_dom();
 $zip = new ZipArchive;
 
+# Transcript path
+$url = get_transcript($url);
+
 # Course path
-$path = get_path($url) or e("Unable to fetch transcript from entered URL: <strong><i>$url</i></strong>", TRUE);
+$path = get_path($url) or e("Unable to fetch transcript from: <strong><i>$url</i></strong>", TRUE);
 
 # Load the DOM
 $html->load_file($url);

@@ -25,7 +25,7 @@
         <!-- Add your site or application content here -->
         <div id="head">
         	<div class="headCenter toCenter">
-        		<a href="#"><h1><b>Lynda</b>.com Subtitle Generator v<?php echo $version; ?></h1></a>
+        		<a href="http://lyndasub.ir/"><h1><b>Lynda</b>.com Subtitle Generator v<?php echo $version; ?></h1></a>
             </div>
         </div>	
        	<div class="content toCenter">
@@ -51,7 +51,7 @@
             
             </div>
             
-            <p class="desc">Enter the URL at the top, but pay attention to the sample please! <br /> sample: <span>http://www.lynda.com/Bootstrap-tutorials/Up-Running-Bootstrap/110885-2/transcript</span></p>
+            <p class="desc">Enter the course URL at the top, according to the sample below. <br /> Sample: <span>http://www.lynda.com/Bootstrap-tutorials/Up-Running-Bootstrap/110885-2.html</span></p>
         </div>
         
         <div class="footer">
