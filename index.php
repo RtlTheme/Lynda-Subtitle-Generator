@@ -52,14 +52,17 @@ function get_path($url)
 {
 	$arr = array('root' => rtrim(DIR, '/'));
 
-	if ( @preg_match('#^https?://(.*)#i', $url, $param) ) {
-		$param = explode('/', $param[1]);
+	if ( @preg_match('#^https?://(www.)?(.+)/transcript$#i', $url, $param) ) {
+		$param = explode('/', $param[2]);
 		$arr['course'] = "$param[1]-$param[2]";
 
-	} else { # local address
-		$param = end(explode('/', $url));
-		$arr['course'] = basename($param, strrchr($param, '.'));
+	} else {
+		// # local address
+		// $param = end(explode('/', $url));
+		// $arr['course'] = basename($param, strrchr($param, '.'));
+		return FALSE;
 	}
+
 	$arr['full'] = $arr['root'].'/'.$arr['course'];
 	return $arr;
 }
@@ -137,13 +140,13 @@ function get_file_address($filename)
 $html = new simple_html_dom();
 $zip = new ZipArchive;
 
+# Course path
+$path = get_path($url) or e("Unable to fetch transcript from entered URL: <strong><i>$url</i></strong>", TRUE);
+
 # Load the DOM
 $html->load_file($url);
 
 $chs = $html->find('td.tChap') or e("Unable to find chapters on: <strong><i>$url</i></strong>", TRUE);
-
-# Course path
-$path = get_path($url);
 
 $zip_file = $path['full'].'.zip';
 

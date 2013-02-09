@@ -56,7 +56,7 @@
         
         <div class="footer">
         	<p><a href="http://lyndasub.ir/">lyndasub.ir</a> is in no way affiliated with Lynda.com.<br />
-Copyright © 2013, Web design and development by <a href="https://github.com/qolami">@qolami</a>, <a href="https://github.com/aliab">@aliab</a> | <a href="https://github.com/qolami/Lynda-Subtitle-Generator">Source Code on github</a></p>
+Copyright © 2013, built by <a href="https://github.com/qolami">@qolami</a>, <a href="https://github.com/aliab">@aliab</a> | <a href="https://github.com/qolami/Lynda-Subtitle-Generator">Source Code on github</a></p>
         </div>
         
         <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script> --> 
