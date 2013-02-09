@@ -3,12 +3,12 @@
  * Lynda Subtitle Generator - PHP application
  * https://github.com/qolami/Lynda-Subtitle-Generator
  * Copyright 2013 Hashem Qolami <hashem@qolami.com>
- * Version 0.8.2
+ * Version 0.8.3
  * Released under the MIT and GPL licenses.
  */
 
 # App version
-$version = '0.8.2';
+$version = '0.8.3';
 
 if (! isset($_GET['url'])) {
 	include 'inc/view.php';
@@ -17,6 +17,10 @@ if (! isset($_GET['url'])) {
 
 # Path to subtitle folder
 define('DIR', 'subtitles');
+
+# File lifetime
+define('FILE_LIFETIME', 7*24*3600);
+
 
 # Custom output
 function e($msg, $err=FALSE)
@@ -160,12 +164,17 @@ $url = get_transcript($url);
 # Course path
 $path = get_path($url) or e("Unable to fetch transcript from: <strong><i>$url</i></strong>", TRUE);
 
+$zip_file = $path['full'].'.zip';
+
+# Check file: existence and lifetime
+if (file_exists($zip_file) && time() - filemtime($zip_file) < FILE_LIFETIME) {
+	e(get_file_address($zip_file));
+}
+
 # Load the DOM
 $html->load_file($url);
 
 $chs = $html->find('td.tChap') or e("Unable to find chapters on: <strong><i>$url</i></strong>", TRUE);
-
-$zip_file = $path['full'].'.zip';
 
 if ($zip->open($zip_file, ZipArchive::CREATE) === TRUE) {
 
