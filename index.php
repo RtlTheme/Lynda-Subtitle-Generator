@@ -68,7 +68,7 @@ function get_path($url)
 
 	if ( @preg_match('#^https?://(www.)?(.+)/transcript$#i', $url, $param) ) {
 		$param = explode('/', $param[2]);
-		$arr['course'] = "$param[1]-$param[2]";
+		$arr['course'] = trim($param[1], '-')."-$param[2]";
 
 	} else {
 		// # local address
