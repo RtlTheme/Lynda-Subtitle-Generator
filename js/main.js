@@ -48,7 +48,7 @@
 			  success: function(data) {
 				  console.log(data.success);
 				  if(data.success){
-				  	$('#downloadLink').attr('href',data);
+				  	$('#downloadLink').attr('href',data.success);
 				    $('#inputs').addClass('flipped');
 				  }else{
 					showErr(data.error);
