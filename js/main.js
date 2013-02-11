@@ -46,9 +46,15 @@
 			  url: 'index.php',
 			  data:{ url: this.model.get('lyndaUrl'),api:1},
 			  success: function(data) {
-				  console.log(data);
-				  $('#downloadLink').attr('href',data);
-				  $('#inputs').addClass('flipped');
+				  console.log(data.success);
+				  if(data.success){
+				  	$('#downloadLink').attr('href',data);
+				    $('#inputs').addClass('flipped');
+				  }else{
+					showErr(data.error);
+					sprite.stop();
+					sprite.col(1);
+				  }
 				  	
 			  },
 			  error: function(xhr, ajaxOptions, thrownError) {
