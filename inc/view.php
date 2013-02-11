@@ -32,7 +32,6 @@
             <h2 class="slogan"> Learn Better, With Subtitle. </h2>
             
             <div class="toSide">
-            
                 <div id="inputs">
                 
                     <div id="front" class="side">

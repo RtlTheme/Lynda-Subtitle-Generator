@@ -7,6 +7,7 @@
 		Router:{}	
 	}
 	
+	var vent = _.extend({},Backbone.Events);
 	
 	App.Models.Sub = Backbone.Model.extend({
 		defaults:{
@@ -29,10 +30,11 @@
 		},
 		changedurl:function(){
 			sprite.go();
+			
 			$.ajax({ 
 			  type: 'get', 
 			  url: 'index.php',
-			  data:{ url: this.model.get('lyndaUrl')},
+			  data:{ url: this.model.get('lyndaUrl'),api:1},
 			  success: function(data) {
 				  console.log(data);
 				  $('#downloadLink').attr('href',data);
@@ -53,16 +55,34 @@
 			'submit':'submit'	
 		},
 		submit:function(e){
-			e.preventDefault();	
+			e.preventDefault();
 			var newURL = $(e.currentTarget).find('input[type=text]').val();
-			this.model.set('lyndaUrl',newURL);
+			var pat = /lynda.com/i;
+			if(pat.test(newURL)){
+				this.model.set('lyndaUrl',newURL);
+			}else{
+				vent.trigger('showErr','Oops, check your url please!')	
+			}
 		}
 	});
 	
+	App.Views.err = Backbone.View.extend({
+		tagName:'div',
+		id:'err',
+		initialize:function(){
+			vent.on('showErr',this.showErr,this)
+		},
+		showErr:function(text){
+			this.$el.html(text);
+			$('.toSide').append(this.el);
+		}
+	})
 	
 	
+	//vent.trigger('editTaskNumber',id)
 	var submodel = new App.Models.Sub();
 	new App.Views.submitURL({model:submodel});
 	new App.Views.subs({model:submodel});
+	var err = new App.Views.err()
 	
 })();

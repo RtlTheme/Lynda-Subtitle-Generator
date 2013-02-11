@@ -104,6 +104,7 @@ body {
 	background-repeat:repeat-x;
 	font-family:Tahoma, Geneva, sans-serif;
     -webkit-font-smoothing: subpixel-antialiased;
+	min-height:615px;
 }
 
 div#head {
@@ -149,6 +150,18 @@ div.toSide{
 	width:668px;
 	height:89px;
 	position:relative;
+}
+
+div#err{
+	position:absolute;
+	z-index:99;
+	background-color:#f5725a;
+	padding:5px 10px;	
+	border-radius:5px;
+	color:#FFF;
+	top:-9px;
+	left:21px;
+	opacity:.95;
 }
 
 div#inputs {
@@ -260,7 +273,7 @@ div.footer{
 	font-size:11px;
 	color:#6a6a6a;
 	text-align:center;
-	position:absolute;
+	position:fixed;
 	bottom:5px;
 	left:0;
 	right:0;
