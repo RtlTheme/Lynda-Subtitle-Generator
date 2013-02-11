@@ -7,6 +7,17 @@
 		Router:{}	
 	}
 	
+	var vent = _.extend({},Backbone.Events);
+	
+	window.showErr = function(text){
+		var el =  document.getElementById('err');
+		if(!el){
+			$('.toSide').append('<div id="err">'+text+'</div>');
+		}else{
+			$('#err').fadeIn(100);
+		}
+		$('#err').delay(3500).fadeOut(100);
+	}
 	
 	App.Models.Sub = Backbone.Model.extend({
 		defaults:{
@@ -29,14 +40,21 @@
 		},
 		changedurl:function(){
 			sprite.go();
+			
 			$.ajax({ 
 			  type: 'get', 
 			  url: 'index.php',
-			  data:{ url: this.model.get('lyndaUrl')},
+			  data:{ url: this.model.get('lyndaUrl'),api:1},
 			  success: function(data) {
-				  console.log(data);
-				  $('#downloadLink').attr('href',data);
-				  $('#inputs').addClass('flipped');
+				  console.log(data.success);
+				  if(data.success){
+				  	$('#downloadLink').attr('href',data);
+				    $('#inputs').addClass('flipped');
+				  }else{
+					showErr(data.error);
+					sprite.stop();
+					sprite.col(1);
+				  }
 				  	
 			  },
 			  error: function(xhr, ajaxOptions, thrownError) {
@@ -53,14 +71,21 @@
 			'submit':'submit'	
 		},
 		submit:function(e){
-			e.preventDefault();	
+			e.preventDefault();
 			var newURL = $(e.currentTarget).find('input[type=text]').val();
-			this.model.set('lyndaUrl',newURL);
+			var pat = /lynda.com/i;
+			if(pat.test(newURL)){
+				this.model.set('lyndaUrl',newURL);
+			}else{
+				showErr('Oops, check your url please!');	
+			}
 		}
 	});
 	
 	
 	
+	
+	//vent.trigger('editTaskNumber',id)
 	var submodel = new App.Models.Sub();
 	new App.Views.submitURL({model:submodel});
 	new App.Views.subs({model:submodel});
