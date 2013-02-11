@@ -6,5 +6,5 @@ Lynda Subtitle Generator
 ##HOW TO USE
 As simple as:
 
-`index.php?url=http://www.lynda.com/Bootstrap-tutorials/Up-Running-Bootstrap/110885-2/transcript`   
- Insert url pointing to the transcript page of a lynda.com course.
+`index.php?url=http://www.lynda.com/Bootstrap-tutorials/Up-Running-Bootstrap/110885-2.html`   
+ Insert url pointing to the page of a lynda.com course.

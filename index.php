@@ -3,12 +3,12 @@
  * Lynda Subtitle Generator - PHP application
  * https://github.com/qolami/Lynda-Subtitle-Generator
  * Copyright 2013 Hashem Qolami <hashem@qolami.com>
- * Version 0.8.0
+ * Version 0.8.3
  * Released under the MIT and GPL licenses.
  */
 
 # App version
-$version = '0.8.0';
+$version = '0.8.3';
 
 if (! isset($_GET['url'])) {
 	include 'inc/view.php';
@@ -18,18 +18,8 @@ if (! isset($_GET['url'])) {
 # Path to subtitle folder
 define('DIR', 'subtitles');
 
-# Get transcript url
-$url = $_GET['url'];
-
-# API
-$api = isset($_GET['api']) ? !!$_GET['api'] : FALSE;
-
-# No time limit
-set_time_limit(0);
-@ini_set("max_execution_time", 0);
-
-# Load library
-include 'lib/simple_html_dom.php';
+# File lifetime
+define('FILE_LIFETIME', 7*24*3600);
 
 
 # Custom output
@@ -48,18 +38,49 @@ function e($msg, $err=FALSE)
 	exit;
 }
 
+# Get transcript url
+$url = $_GET['url'] or e('Insert a URL to generate subtitles', TRUE);
+
+# API
+$api = isset($_GET['api']) ? !!$_GET['api'] : FALSE;
+
+# No time limit
+set_time_limit(0);
+@ini_set("max_execution_time", 0);
+
+# Load library
+include 'lib/simple_html_dom.php';
+
+
+function get_transcript($url)
+{
+	$pattern[0]		= "#^(.+).html$#i";
+	$replacement[0]	= "$1/transcript";
+
+	$pattern[1]		= "#^(.+)(\d)/?$#i";
+	$replacement[1]	= "$1$2/transcript";
+
+	$pattern[2]		= "#^(.+)(/transcript)$#i";
+	$replacement[2]	= "$1$2";
+
+	return preg_replace($pattern, $replacement, $url);
+}
+
 function get_path($url)
 {
 	$arr = array('root' => rtrim(DIR, '/'));
 
-	if ( @preg_match('#^https?://(.*)#i', $url, $param) ) {
-		$param = explode('/', $param[1]);
-		$arr['course'] = "$param[1]-$param[2]";
+	if ( @preg_match('#^https?://(www.)?(.+)/transcript$#i', $url, $param) ) {
+		$param = explode('/', $param[2]);
+		$arr['course'] = trim($param[1], '-')."-$param[2]";
 
-	} else { # local address
-		$param = end(explode('/', $url));
-		$arr['course'] = basename($param, strrchr($param, '.'));
+	} else {
+		// # local address
+		// $param = end(explode('/', $url));
+		// $arr['course'] = basename($param, strrchr($param, '.'));
+		return FALSE;
 	}
+
 	$arr['full'] = $arr['root'].'/'.$arr['course'];
 	return $arr;
 }
@@ -137,15 +158,23 @@ function get_file_address($filename)
 $html = new simple_html_dom();
 $zip = new ZipArchive;
 
+# Transcript path
+$url = get_transcript($url);
+
+# Course path
+$path = get_path($url) or e("Unable to fetch transcript from: <strong><i>$url</i></strong>", TRUE);
+
+$zip_file = $path['full'].'.zip';
+
+# Check file: existence and lifetime
+if (file_exists($zip_file) && time() - filemtime($zip_file) < FILE_LIFETIME) {
+	e(get_file_address($zip_file));
+}
+
 # Load the DOM
 $html->load_file($url);
 
 $chs = $html->find('td.tChap') or e("Unable to find chapters on: <strong><i>$url</i></strong>", TRUE);
-
-# Course path
-$path = get_path($url);
-
-$zip_file = $path['full'].'.zip';
 
 if ($zip->open($zip_file, ZipArchive::CREATE) === TRUE) {
 
