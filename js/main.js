@@ -9,6 +9,16 @@
 	
 	var vent = _.extend({},Backbone.Events);
 	
+	window.showErr = function(text){
+		var el =  document.getElementById('err');
+		if(!el){
+			$('.toSide').append('<div id="err">'+text+'</div>');
+		}else{
+			$('#err').fadeIn(100);
+		}
+		$('#err').delay(3500).fadeOut(100);
+	}
+	
 	App.Models.Sub = Backbone.Model.extend({
 		defaults:{
 			name:'',
@@ -61,28 +71,17 @@
 			if(pat.test(newURL)){
 				this.model.set('lyndaUrl',newURL);
 			}else{
-				vent.trigger('showErr','Oops, check your url please!')	
+				showErr('Oops, check your url please!');	
 			}
 		}
 	});
 	
-	App.Views.err = Backbone.View.extend({
-		tagName:'div',
-		id:'err',
-		initialize:function(){
-			vent.on('showErr',this.showErr,this)
-		},
-		showErr:function(text){
-			this.$el.html(text);
-			$('.toSide').append(this.el);
-		}
-	})
+	
 	
 	
 	//vent.trigger('editTaskNumber',id)
 	var submodel = new App.Models.Sub();
 	new App.Views.submitURL({model:submodel});
 	new App.Views.subs({model:submodel});
-	var err = new App.Views.err()
 	
 })();
