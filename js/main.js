@@ -31,7 +31,7 @@
 			sprite.go();
 			$.ajax({ 
 			  type: 'get', 
-			  url: 'app.php',
+			  url: 'index.php',
 			  data:{ url: this.model.get('lyndaUrl')},
 			  success: function(data) {
 				  console.log(data);
