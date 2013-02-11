@@ -56,7 +56,7 @@
         
         <div class="footer">
         	<p><a href="http://lyndasub.ir/">lyndasub.ir</a> is in no way affiliated with Lynda.com.<br />
-Copyright © 2013, built by <a href="https://github.com/qolami">@qolami</a>, <a href="https://github.com/aliab">@aliab</a> | <a href="https://github.com/qolami/Lynda-Subtitle-Generator">Source Code on github</a></p>
+Copyright © 2013, built by <a href="https://github.com/qolami">@qolami</a> & <a href="https://github.com/aliab">@aliab</a> | <a href="https://github.com/qolami/Lynda-Subtitle-Generator">Source Code on github</a></p>
         </div>
         
         <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script> --> 
@@ -66,13 +66,11 @@ Copyright © 2013, built by <a href="https://github.com/qolami">@qolami</a>, <a 
         <script type="text/javascript" src="js/plugins.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
 
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. 
         <script>
-            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            var _gaq=[['_setAccount','UA-38402458-1'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
-        -->
     </body>
 </html>
