@@ -47,15 +47,13 @@
 		},
 		
 		changedurl:function(){
+			if( this.model.get('lyndaUrl') == '#') return
 			sprite.go();
-			
 			$.ajax({ 
 			  type: 'get', 
 			  url: 'index.php',
 			  data:{ url: this.model.get('lyndaUrl'),api:1},
 			  success: function(data) {
-				  console.log(data.success);
-				  console.log(data.error);
 				  if(data.success){
 				  	$('#downlodit').attr('href',data.success);
 				    $('#inputs').addClass('flipped');
@@ -94,8 +92,8 @@
 			}
 		}
 	});
-	
-	var submodel = new App.Models.Sub();
+
+	window.submodel = new App.Models.Sub();
 	new App.Views.submitURL({model:submodel});
 	new App.Views.subs({model:submodel});
 	
