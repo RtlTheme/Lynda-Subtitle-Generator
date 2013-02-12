@@ -8,8 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Lynda.com Subtitle Generator v<?php echo $version; ?></title>
         <meta name="description" content="A simple PHP application to generate SRT subtitles for Lynda.com courses">
-        <meta name="viewport" content="width=device-width">
-
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
         <link type="text/plain" rel="author" href="humans.txt">
@@ -37,15 +36,15 @@
                     <div id="front" class="side">
                     <form action="" method="get" id="lyndaURL">
                         <input type="text" class="clearfix" />
-                        <a href="#" onClick="$('#lyndaURL').submit()"><div id="zipit">zip it</div></a>
+                        <a href="#" onClick="$('#lyndaURL').submit()" id="zipit">zip it</a>
                     </form>
                     </div>
                     
                     <div id="back" class="side">
-                        <a href="#" id="downloadLink"><div id="downlodit">download</div></a>
+                    	<a href="#" id="retry">Try Another Link</a>
+                        <a href="#" id="downlodit">download</a>
                     </div>
-                    
-                    
+					
                 </div>
             
             </div>
