@@ -54,7 +54,7 @@ include 'lib/simple_html_dom.php';
 
 function get_transcript($url)
 {
-	$url = urldecode($url);
+	$url = urldecode(trim($url));
 	$pattern[0]		= "#^(.+).html$#i";
 	$replacement[0]	= "$1/transcript";
 
