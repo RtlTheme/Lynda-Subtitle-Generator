@@ -3,12 +3,12 @@
  * Lynda Subtitle Generator - PHP application
  * https://github.com/qolami/Lynda-Subtitle-Generator
  * Copyright 2013 Hashem Qolami <hashem@qolami.com>
- * Version 0.8.4
+ * Version 0.8.5
  * Released under the MIT and GPL licenses.
  */
 
 # App version
-$version = '0.8.4';
+$version = '0.8.5';
 
 if (! isset($_GET['url'])) {
 	include 'inc/view.php';
@@ -86,6 +86,21 @@ function get_path($url)
 	return $arr;
 }
 
+function get_url_content($url)
+{
+	if (function_exists('curl_init')) {
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		$output = curl_exec($ch);
+		curl_close($ch);
+	} else {
+		$output = @file_get_contents($url) or FALSE;
+	}
+	return $output;
+}
+
 function str_pure($str)
 {
 	return trim(str_replace(array('\\','/',':','*','?','"','<','>','|'), '', $str));
@@ -156,7 +171,7 @@ function get_file_address($filename)
 ############################################################
 
 # Make instances
-$html = new simple_html_dom();
+$html = new simple_html_dom;
 $zip = new ZipArchive;
 
 # Transcript path
@@ -172,8 +187,11 @@ if (file_exists($zip_file) && time() - filemtime($zip_file) < FILE_LIFETIME) {
 	e(get_file_address($zip_file));
 }
 
+# Get URL content
+$content = get_url_content($url) or e("Unable to load data from: <strong><i>$url</i></strong>", TRUE);
+
 # Load the DOM
-$html->load_file($url);
+$html->load($content);
 
 $chs = $html->find('td.tChap') or e("Unable to find chapters on: <strong><i>$url</i></strong>", TRUE);
 
