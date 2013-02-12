@@ -14,7 +14,7 @@
 		if(!el){
 			$('.toSide').append('<div id="err">'+text+'</div>');
 		}else{
-			$('#el').html(text);
+			$('#err').html(text);
 			$('#err').fadeIn(100);
 		}
 		$('#err').delay(3500).fadeOut(100);
@@ -61,6 +61,7 @@
 			  data:{ url: this.model.get('lyndaUrl'),api:1},
 			  success: function(data) {
 				  console.log(data.success);
+				  console.log(data.error);
 				  if(data.success){
 				  	$('#downlodit').attr('href',data.success);
 				    $('#inputs').addClass('flipped');
@@ -73,8 +74,8 @@
 				  	
 			  },
 			  error: function(xhr, ajaxOptions, thrownError) {
-			      console.log(xhr +' - '+thrownError);
-				  showErr('Check your URL please, we get '+thrownError);
+			      console.log(xhr.toSource() +' - '+thrownError);
+				  showErr('Check URL please!');
 				  sprite.stop();
 				  sprite.col(1);
 			  }
