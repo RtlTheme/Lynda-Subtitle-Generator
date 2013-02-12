@@ -52,7 +52,7 @@
 			$.ajax({ 
 			  type: 'get', 
 			  url: 'index.php',
-			  data:{ url: this.model.get('lyndaUrl'),api:1},
+			  data:{ url: $.trim(this.model.get('lyndaUrl')),api:1},
 			  success: function(data) {
 				  if(data.success){
 				  	$('#downlodit').attr('href',data.success);

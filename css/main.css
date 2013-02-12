@@ -179,7 +179,6 @@ a#retry{
 	opacity:.95;
 	font-size:13px;
 	text-decoration:none;
-	height:0;
 	display:none;
 	overflow:hidden;
 }
