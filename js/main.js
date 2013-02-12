@@ -6,9 +6,7 @@
 		Views:{},
 		Router:{}	
 	}
-	
-	var vent = _.extend({},Backbone.Events);
-	
+		
 	window.showErr = function(text){
 		var el =  document.getElementById('err');
 		if(!el){
@@ -17,7 +15,7 @@
 			$('#err').html(text);
 			$('#err').fadeIn(100);
 		}
-		$('#err').delay(3500).fadeOut(100);
+		$('#err').delay(5000).fadeOut(100);
 	}
 	
 	App.Models.Sub = Backbone.Model.extend({
@@ -101,10 +99,6 @@
 		}
 	});
 	
-	
-	
-	
-	//vent.trigger('editTaskNumber',id)
 	var submodel = new App.Models.Sub();
 	new App.Views.submitURL({model:submodel});
 	new App.Views.subs({model:submodel});
