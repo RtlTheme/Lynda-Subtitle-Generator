@@ -174,13 +174,14 @@ a#retry{
 	padding:0px 10px;	
 	border-radius:5px 5px 0px 0px;
 	color:#eeeeee;
-	top:-27px;
+	top:-7px;
 	left:27px;
 	opacity:.95;
 	font-size:13px;
 	text-decoration:none;
-	display:none;
+	display:block;
 	overflow:hidden;
+	height:0;
 }
 
 div#inputs {
