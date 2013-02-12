@@ -34,11 +34,24 @@
 	});
 	
 	App.Views.subs = Backbone.View.extend({
-		el:'#downloadLink',
+		el:'#back',
 		
 		initialize:function(){
-			this.model.on('change:lyndaUrl',this.changedurl,this)
+			this.model.on('change:lyndaUrl',this.changedurl,this);
 		},
+		events:{
+			'click #retry':'retry'	
+		},
+		
+		retry:function(){
+			this.model.set('lyndaUrl','');
+			sprite.stop();
+			sprite.col(1);
+			$('#downlodit').attr('href','#');
+			$('#lyndaURL').find('input[type=text]').val('');
+			$('#inputs').removeClass('flipped');
+		},
+		
 		changedurl:function(){
 			sprite.go();
 			
@@ -49,8 +62,9 @@
 			  success: function(data) {
 				  console.log(data.success);
 				  if(data.success){
-				  	$('#downloadLink').attr('href',data);
+				  	$('#downlodit').attr('href',data.success);
 				    $('#inputs').addClass('flipped');
+					$('#retry').delay(1000).show().animate({height:20},50);
 				  }else{
 					showErr(data.error);
 					sprite.stop();
@@ -59,7 +73,10 @@
 				  	
 			  },
 			  error: function(xhr, ajaxOptions, thrownError) {
-			      console.log(thrownError);
+			      console.log(xhr +' - '+thrownError);
+				  showErr('Check your URL please, we get '+thrownError);
+				  sprite.stop();
+				  sprite.col(1);
 			  }
 			});
 		}

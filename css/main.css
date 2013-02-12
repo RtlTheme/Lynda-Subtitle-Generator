@@ -78,6 +78,10 @@ textarea {
     resize: vertical;
 }
 
+a:active, a:focus,input, input:active, input:focus{     outline: 0;     outline-style:none;     outline-width:0; }  
+a:active, a:focus,button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner 
+{     border: none; } 
+
 /* ==========================================================================
    Chrome Frame prompt
    ========================================================================== */
@@ -94,24 +98,22 @@ textarea {
    ========================================================================== */
 html, body{
 	width:100%;
-	height:100%;
 }
 
 body {
 	background-color:#eeeeee;
-	background-image:url(../img/footer-jpg.jpg);
-	background-position:bottom;
-	background-repeat:repeat-x;
 	font-family:Tahoma, Geneva, sans-serif;
     -webkit-font-smoothing: subpixel-antialiased;
-	min-height:615px;
+	min-height:500px;
 }
 
 div#head {
 	width:100%;
 	background-color:#000;
 	height:60px;
-	padding-top:10px;	
+	padding-top:10px;
+	position: fixed;
+    top: 0;	
 }
 
 .headCenter{
@@ -132,8 +134,7 @@ div#head h1{
 
 div.content{
 	width:940px;
-	height:500px;
-	margin-top:150px;
+	margin-top:250px;
 }
 
 div.content h2.slogan{
@@ -165,6 +166,24 @@ div#err{
 	font-size:13px;
 }
 
+a#retry{
+	display:block;
+	position:absolute;
+	z-index:1;
+	background-color:#f5725a;
+	padding:0px 10px;	
+	border-radius:0px 0px 5px 5px;
+	color:#eeeeee;
+	top:60px;
+	left:27px;
+	opacity:.95;
+	font-size:13px;
+	text-decoration:none;
+	height:0;
+	display:none;
+}
+
+
 div#inputs {
 	width:668px;
 	height:89px;	
@@ -184,15 +203,7 @@ div#inputs {
 	-webkit-transform: rotateX(-180deg);
 	transform: rotateX(-180deg); 
 }
-/*
-#inputs.flipped #front {
-    z-index: 0; 
-}
-#inputs.flipped #back {
-    z-index: 10; 
-}
 
-*/
 div#inputs .side {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -240,32 +251,21 @@ div#front a{
 	margin-left:498px;
 }
 
-div#back a{
+div#back a#downlodit{
 	display:block;
 	width:218px;
 	height:54px;
 	margin:auto;
-}
-
-div#inputs div#zipit{
 	text-indent:-9999px;
-	width:131px;
-	height:54px;
-	background-image:url(../img/zipit-anim.png);
-}
-
-div#inputs div#downlodit{
-	text-indent:-9999px;
-	width:218px;
-	height:54px;
-	margin:auto;
 	background-image:url(../img/download.png);
 }
 
-div#inputs a:hover div#zipit{
-	opacity:.9;
+div#inputs a#zipit{
+	text-indent:-9999px;
+	background-image:url(../img/zipit-anim.png);
 }
-div#inputs a:hover div#downlodit{
+
+div#inputs a:hover{
 	opacity:.9;
 }
 
@@ -275,10 +275,13 @@ div.footer{
 	color:#6a6a6a;
 	text-align:center;
 	position:fixed;
-	bottom:5px;
+	bottom:0px;
 	left:0;
 	right:0;
 	margin:auto;
+	background-image:url(../img/footer-jpg.jpg);
+	background-position:bottom;
+	background-repeat:repeat-x;
 }
 
 div.footer a{

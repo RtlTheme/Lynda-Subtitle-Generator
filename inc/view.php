@@ -37,15 +37,15 @@
                     <div id="front" class="side">
                     <form action="" method="get" id="lyndaURL">
                         <input type="text" class="clearfix" />
-                        <a href="#" onClick="$('#lyndaURL').submit()"><div id="zipit">zip it</div></a>
+                        <a href="#" onClick="$('#lyndaURL').submit()" id="zipit">zip it</a>
                     </form>
                     </div>
                     
                     <div id="back" class="side">
-                        <a href="#" id="downloadLink"><div id="downlodit">download</div></a>
+                    	<a href="#" id="retry">Try Another Link</a>
+                        <a href="#" id="downlodit">download</a>
                     </div>
-                    
-                    
+					
                 </div>
             
             </div>
