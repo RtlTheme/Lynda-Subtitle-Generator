@@ -14,6 +14,7 @@
 		if(!el){
 			$('.toSide').append('<div id="err">'+text+'</div>');
 		}else{
+			$('#el').html(text);
 			$('#err').fadeIn(100);
 		}
 		$('#err').delay(3500).fadeOut(100);
