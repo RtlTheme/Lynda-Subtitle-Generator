@@ -1,6 +1,6 @@
 (function(){
 	window.sprite = $('#zipit').sprite({cellSize: [131,54],cells: [1, 15],initCell: [0,0],interval: 50});
-	
+
 	window.App = {
 		Models:{},
 		Views:{},
