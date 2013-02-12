@@ -42,7 +42,7 @@
 			sprite.col(1);
 			$('#downlodit').attr('href','#');
 			$('#lyndaURL').find('input[type=text]').val('');
-			$('#retry').animate({height:0},50);
+			$('#retry').animate({height:0,top:-7},20);
 			$('#inputs').removeClass('flipped');
 		},
 		
@@ -57,7 +57,7 @@
 				  if(data.success){
 				  	$('#downlodit').attr('href',data.success);
 				    $('#inputs').addClass('flipped');
-					$('#retry').delay(1000).show().animate({height:20},50);
+					$('#retry').delay(500).animate({height:20,top:-27},100);
 				  }else{
 					showErr(data.error);
 					sprite.stop();
