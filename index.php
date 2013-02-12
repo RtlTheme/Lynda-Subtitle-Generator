@@ -54,6 +54,7 @@ include 'lib/simple_html_dom.php';
 
 function get_transcript($url)
 {
+	$url = urldecode($url);
 	$pattern[0]		= "#^(.+).html$#i";
 	$replacement[0]	= "$1/transcript";
 
@@ -70,7 +71,7 @@ function get_path($url)
 {
 	$arr = array('root' => rtrim(DIR, '/'));
 
-	if ( @preg_match('#^https?://(www.)?(.+)/transcript$#i', $url, $param) ) {
+	if ( @preg_match('#^https?://(www.)?lynda.com(.+)/transcript$#i', $url, $param) ) {
 		$param = explode('/', $param[2]);
 		$arr['course'] = trim($param[1], '-')."-$param[2]";
 
