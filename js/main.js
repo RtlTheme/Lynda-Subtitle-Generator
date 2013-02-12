@@ -19,11 +19,6 @@
 	}
 	
 	App.Models.Sub = Backbone.Model.extend({
-		defaults:{
-			name:'',
-			lyndaUrl:'',
-			downloadLink:''	
-		},
 		validate:function(attr){
 			if(!$.trim(attr.lyndaUrl) ){
 				return 'please enter download link.'	
@@ -42,11 +37,12 @@
 		},
 		
 		retry:function(){
-			this.model.set('lyndaUrl','');
+			this.model.set('lyndaUrl','#');
 			sprite.stop();
 			sprite.col(1);
 			$('#downlodit').attr('href','#');
 			$('#lyndaURL').find('input[type=text]').val('');
+			$('#retry').animate({height:0},50);
 			$('#inputs').removeClass('flipped');
 		},
 		
