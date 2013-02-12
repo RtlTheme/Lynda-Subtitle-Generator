@@ -6,18 +6,16 @@
 		Views:{},
 		Router:{}	
 	}
-	
-	var vent = _.extend({},Backbone.Events);
-	
+		
 	window.showErr = function(text){
 		var el =  document.getElementById('err');
 		if(!el){
 			$('.toSide').append('<div id="err">'+text+'</div>');
 		}else{
-			$('#el').html(text);
+			$('#err').html(text);
 			$('#err').fadeIn(100);
 		}
-		$('#err').delay(3500).fadeOut(100);
+		$('#err').delay(5000).fadeOut(100);
 	}
 	
 	App.Models.Sub = Backbone.Model.extend({
@@ -61,6 +59,7 @@
 			  data:{ url: this.model.get('lyndaUrl'),api:1},
 			  success: function(data) {
 				  console.log(data.success);
+				  console.log(data.error);
 				  if(data.success){
 				  	$('#downlodit').attr('href',data.success);
 				    $('#inputs').addClass('flipped');
@@ -73,8 +72,8 @@
 				  	
 			  },
 			  error: function(xhr, ajaxOptions, thrownError) {
-			      console.log(xhr +' - '+thrownError);
-				  showErr('Check your URL please, we get '+thrownError);
+			      console.log(xhr.toSource() +' - '+thrownError);
+				  showErr('Check URL please!');
 				  sprite.stop();
 				  sprite.col(1);
 			  }
@@ -100,10 +99,6 @@
 		}
 	});
 	
-	
-	
-	
-	//vent.trigger('editTaskNumber',id)
 	var submodel = new App.Models.Sub();
 	new App.Views.submitURL({model:submodel});
 	new App.Views.subs({model:submodel});
