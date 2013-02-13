@@ -1,4 +1,8 @@
 (function(){
+	$(document).ready(function($) {
+		$('body').removeClass('loader');
+	});
+	
 	window.sprite = $('#zipit').sprite({cellSize: [131,54],cells: [1, 15],initCell: [0,0],interval: 50});
 
 	window.App = {
@@ -111,7 +115,6 @@
 	(syncHeight = function(){
 	    scrHeight = $(window).height();
 	    ncsHeight = _obj.height()+redHeight;
-	    console.log(scrHeight, ncsHeight);
 	    vspace =(scrHeight>ncsHeight)?fit2parent.vspace(_obj,window)-redHeight/2:0;
 	    _obj.css({
 	        'margin-top':vspace+'px',
