@@ -129,7 +129,8 @@ div#head {
 }
 
 .headCenter{
-	width:960px;	
+	max-width:960px;
+	padding-left: 10px;
 }
 
 div#head a{
@@ -159,13 +160,7 @@ div.content h2.slogan{
 	font-family:Verdana,Arial,Helvetica,sans-serif;
 	color:#40433b;
 	margin-bottom:1.5em;
-}
-
-div.toSide{
-	margin:auto;
-	width:668px;
-	height:89px;
-	position:relative;
+	white-space: nowrap;
 }
 
 div#err{
@@ -200,9 +195,10 @@ a#retry{
 }
 
 div#inputs {
+	margin: 0 auto;
 	width:668px;
 	height:89px;	
-	background-image:url(../img/inputBG.png);
+	background:url(../img/inputBG.png) center top no-repeat;
 	margin-bottom:25px;
 	position:relative;
 	-webkit-transform-style: preserve-3d;
@@ -216,6 +212,9 @@ div#inputs {
 
 .flipped {
 	-webkit-transform: rotateX(-180deg);
+	-moz-transform: rotateX(-180deg);
+	-o-transform: rotateX(-180deg);
+	-ms-transform: rotateX(-180deg);
 	transform: rotateX(-180deg); 
 }
 
@@ -232,8 +231,10 @@ div#front{
 }
 
 div#back{
-	z-index: 10;
 	-webkit-transform: rotateX(180deg);
+	-moz-transform: rotateX(180deg);
+	-o-transform: rotateX(180deg);
+	-ms-transform: rotateX(180deg);
 	transform: rotateX(180deg);
 	width:629px;
 }
@@ -272,15 +273,17 @@ div#back a#downlodit{
 	height:54px;
 	margin:auto;
 	text-indent:-9999px;
-	background-image:url(../img/download.png);
+	background:url(../img/download.png) center top no-repeat;
 }
 
 div#inputs a#zipit{
 	text-indent:-9999px;
-	background-image:url(../img/zipit-anim.png);
+	background:url(../img/zipit-anim.png) center top no-repeat;
 }
 
 div#inputs a:hover{
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+	filter: alpha(opacity=90);
 	opacity:.9;
 }
 
@@ -306,9 +309,6 @@ div.footer a{
 div.footer a:hover{
 	color:#039;	
 }
-
-
-
 
 /* ==========================================================================
    Helper classes

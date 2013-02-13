@@ -14,7 +14,7 @@
 	window.showErr = function(text){
 		var el =  document.getElementById('err');
 		if(!el){
-			$('.toSide').append('<div id="err">'+text+'</div>');
+			$('#inputs').append('<div id="err">'+text+'</div>');
 		}else{
 			$('#err').html(text);
 			$('#err').fadeIn(100);
@@ -54,27 +54,26 @@
 			if( this.model.get('lyndaUrl') == '#') return
 			sprite.go();
 			$.ajax({ 
-			  type: 'get', 
-			  url: 'index.php',
-			  data:{ url: $.trim(this.model.get('lyndaUrl')),api:1},
-			  success: function(data) {
-				  if(data.success){
-				  	$('#downlodit').attr('href',data.success);
-				    $('#inputs').addClass('flipped');
-					$('#retry').delay(500).animate({height:20,top:-27},100);
-				  }else{
-					showErr(data.error);
+				type: 'get', 
+				url: 'index.php',
+				data:{ url: $.trim(this.model.get('lyndaUrl')),api:1},
+				success: function(data) {
+					if(data.success){
+					  	$('#downlodit').attr('href',data.success);
+					    $('#inputs').addClass('flipped');
+						$('#retry').delay(500).animate({height:20,top:-27},100);
+					}else{
+						showErr(data.error);
+					}
 					sprite.stop();
 					sprite.col(1);
-				  }
-				  	
-			  },
-			  error: function(xhr, ajaxOptions, thrownError) {
-			      console.log(xhr.toSource() +' - '+thrownError);
-				  showErr('Check URL please!');
-				  sprite.stop();
-				  sprite.col(1);
-			  }
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					console.log(xhr.toSource() +' - '+thrownError);
+					showErr('Check URL please!');
+					sprite.stop();
+					sprite.col(1);
+				}
 			});
 		}
 		
