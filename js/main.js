@@ -96,5 +96,28 @@
 	window.submodel = new App.Models.Sub();
 	new App.Views.submitURL({model:submodel});
 	new App.Views.subs({model:submodel});
-	
+
+	// Add fitText
+	$(".slogan").fitText(1.2, { minFontSize: '20px', maxFontSize: '52px' });
+
+	// Sync the Begining and ending section
+	var redElmArr = ['#head','#footer'], redHeight=0;
+	for(x in redElmArr){
+	    redHeight+=$(redElmArr[x]).height();
+	}
+
+	var _obj = $('div.content');
+
+	(syncHeight = function(){
+	    scrHeight = $(window).height();
+	    ncsHeight = _obj.height()+redHeight;
+	    console.log(scrHeight, ncsHeight);
+	    vspace =(scrHeight>ncsHeight)?fit2parent.vspace(_obj,window)-redHeight/2:0;
+	    _obj.css({
+	        'margin-top':vspace+'px',
+	        'margin-bottom':vspace+'px'
+	    });
+	})();
+
+	$(window).resize(syncHeight);
 })();

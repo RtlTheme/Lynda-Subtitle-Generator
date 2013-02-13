@@ -31,3 +31,21 @@
 $('a[href="#"]').click(function(e){
 	e.preventDefault();
 })
+
+/*! 
+* FitText.js 1.1
+*
+* Copyright 2011, Dave Rupert http://daverupert.com
+* Released under the WTFPL license 
+* http://sam.zoy.org/wtfpl/
+*
+* Date: Thu May 05 14:23:00 2011 -0600
+*/
+$.fn.fitText=function(d,e){var f=d||1,a=$.extend({minFontSize:Number.NEGATIVE_INFINITY,maxFontSize:Number.POSITIVE_INFINITY},e);return this.each(function(){var b=$(this),c=function(){b.css("font-size",Math.max(Math.min(b.width()/(10*f),parseFloat(a.maxFontSize)),parseFloat(a.minFontSize)))};c();$(window).on("resize",c)})};
+
+/**
+ * Fit elements' height/width to their parent
+ * Copyright 2013 Hashem Qolami <hashem@qolami.com>
+ * Released under the WTFPL license
+ */
+var fit2parent={vspace:function(b,a){a=void 0===a?$(b).parent():a;return Math.round(($(a).height()-$(b).height())/2)},hspace:function(b,a){a=void 0===a?$(b).parent():a;return Math.round(($(a).width()-$(b).width())/2)}};
