@@ -40,7 +40,7 @@
 			this.model.set('lyndaUrl','#');
 			sprite.stop();
 			sprite.col(1);
-			$('#downlodit').attr('href','#');
+			$('#downlodit').attr('href','');
 			$('#lyndaURL').find('input[type=text]').val('');
 			$('#retry').animate({height:0,top:-7},20);
 			$('#inputs').removeClass('flipped');

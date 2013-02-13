@@ -42,7 +42,7 @@
                     
                     <div id="back" class="side">
                     	<a href="#" id="retry">Try Another Link</a>
-                        <a href="#" id="downlodit">download</a>
+                        <a href="" id="downlodit">download</a>
                     </div>
 					
                 </div>
