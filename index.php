@@ -3,12 +3,12 @@
  * Lynda Subtitle Generator - PHP application
  * https://github.com/qolami/Lynda-Subtitle-Generator
  * Copyright 2013 Hashem Qolami <hashem@qolami.com>
- * Version 0.9.1
+ * Version 0.9.2
  * Released under the MIT and GPL licenses.
  */
 
 # App version
-$version = '0.9.1';
+$version = '0.9.2';
 
 if (! isset($_GET['url'])) {
 	include 'inc/view.php';
