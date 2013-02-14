@@ -283,12 +283,20 @@ div#back a#downlodit{
 	height:54px;
 	margin:auto;
 	text-indent:-9999px;
-	background:url(../img/download.png) center top no-repeat;
+/*	background: url(../img/blank.gif) -2px -2px no-repeat, url(../img/download.png) center top no-repeat;
+	-ms-filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop',src='http://lyndasub.ir/img/download.png');
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop',src='http://lyndasub.ir/img/download.png');
+*/	background: url(../img/download.png) center top no-repeat;
 }
 
 div#inputs a#zipit{
 	text-indent:-9999px;
-	background:url(../img/zipit-anim.png) center top no-repeat;
+	/* using border-radius instead of background position for the 1px image ;) */
+/*	border-radius: 2px;
+	background: url(../img/blank.gif) no-repeat, url(../img/zipit-anim.png) center top no-repeat;
+	-ms-filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop',src='http://lyndasub.ir/img/zipit-anim.png');
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop',src='http://lyndasub.ir/img/zipit-anim.png');
+*/	background: url(../img/zipit-anim.png) center top no-repeat;
 }
 
 div#inputs a:hover{
@@ -296,7 +304,17 @@ div#inputs a:hover{
 	filter: alpha(opacity=90);
 	opacity:.9;
 }
+/*
+div#back #downlodit:hover{
+	-ms-filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop',src='http://lyndasub.ir/img/download.png')alpha(opacity=90);
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop',src='http://lyndasub.ir/img/download.png')alpha(opacity=90);
+}
 
+div#inputs #zipit:hover{
+	-ms-filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop',src='http://lyndasub.ir/img/zipit-anim.png')alpha(opacity=90);
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop',src='http://lyndasub.ir/img/zipit-anim.png')alpha(opacity=90);
+}
+*/
 div.footer{
 	font-size:11px;
 	color:#6a6a6a;
