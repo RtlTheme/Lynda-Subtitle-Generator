@@ -167,11 +167,13 @@ div#err{
 	position:absolute;
 	z-index:99;
 	background-color:#f5725a;
-	padding:5px 10px;	
+	padding:5px 10px;
 	border-radius:5px;
 	color:#FFF;
 	top:-9px;
 	left:21px;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=95)";
+	filter: alpha(opacity=95);
 	opacity:.95;
 	font-size:13px;
 }
@@ -179,13 +181,15 @@ div#err{
 a#retry{
 	display:block;
 	position:absolute;
-	z-index:1;
+	z-index:3;
 	background-color:#f5725a;
-	padding:0px 10px;	
+	padding:0px 10px;
 	border-radius:5px 5px 0px 0px;
 	color:#eeeeee;
 	top:-7px;
 	left:27px;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=95)";
+	filter: alpha(opacity=95);
 	opacity:.95;
 	font-size:13px;
 	text-decoration:none;
@@ -201,8 +205,11 @@ div#inputs {
 	background:url(../img/inputBG.png) center top no-repeat;
 	margin-bottom:25px;
 	position:relative;
+
 	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
 	transform-style: preserve-3d;
+
 	-webkit-transition-duration: 0.8s;
 	-moz-transition-duration: 0.8s;
 	-ms-transition-duration: 0.8s;
@@ -220,6 +227,7 @@ div#inputs {
 
 div#inputs .side {
 	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
 	backface-visibility: hidden;
 	position: absolute;
 	left: 23px;
@@ -227,10 +235,12 @@ div#inputs .side {
 }
 
 div#front{
-	z-index: 0;
+	z-index: 1;
 }
 
 div#back{
+	z-index: 2;
+	display: none;
 	-webkit-transform: rotateX(180deg);
 	-moz-transform: rotateX(180deg);
 	-o-transform: rotateX(180deg);
@@ -286,7 +296,6 @@ div#inputs a:hover{
 	filter: alpha(opacity=90);
 	opacity:.9;
 }
-
 
 div.footer{
 	font-size:11px;

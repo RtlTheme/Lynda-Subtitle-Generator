@@ -2,7 +2,7 @@
 	$(document).ready(function($) {
 		$('body').removeClass('loader');
 	});
-	
+
 	window.sprite = $('#zipit').sprite({cellSize: [131,54],cells: [1, 15],initCell: [0,0],interval: 50});
 
 	window.App = {
@@ -17,9 +17,9 @@
 			$('#inputs').append('<div id="err">'+text+'</div>');
 		}else{
 			$('#err').html(text);
-			$('#err').fadeIn(100);
+			$('#err').fadeIn(200);
 		}
-		$('#err').delay(5000).fadeOut(100);
+		$('#err').delay(5000).fadeOut(200);
 	}
 	
 	App.Models.Sub = Backbone.Model.extend({
@@ -47,7 +47,13 @@
 			$('#downlodit').attr('href','');
 			$('#lyndaURL').find('input[type=text]').val('');
 			$('#retry').animate({height:0,top:-7},20);
-			$('#inputs').removeClass('flipped');
+			if (Modernizr.csstransforms3d) {
+				$('#inputs').removeClass('flipped');
+			} else {
+				$('#back').fadeOut(200);
+				$('#front').fadeIn(500);
+			}
+			
 		},
 		
 		changedurl:function(){
@@ -60,7 +66,13 @@
 				success: function(data) {
 					if(data.success){
 					  	$('#downlodit').attr('href',data.success);
-					    $('#inputs').addClass('flipped');
+					    if (Modernizr.csstransforms3d) {
+					    	$('#back').css('display', 'block');
+							$('#inputs').addClass('flipped');
+						} else {
+							$('#front').fadeOut(200);
+							$('#back').fadeIn(500);
+						}
 						$('#retry').delay(500).animate({height:20,top:-27},100);
 					}else{
 						showErr(data.error);
