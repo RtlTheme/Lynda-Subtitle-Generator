@@ -61,14 +61,14 @@ Copyright © 2013, built by <a href="https://github.com/qolami">@qolami</a> & <a
 		<script type="text/javascript" src="js/plugins.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 
-	   <!-- <script>
+	   <script>
 			var _gaq=[['_setAccount','UA-38402458-1'],['_trackPageview']];
 			(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
 			g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
 			s.parentNode.insertBefore(g,s)}(document,'script'));
-		</script> -->
+		</script>
 
-		<script type="text/javascript">
+		<!-- <script type="text/javascript">
 			var pkBaseURL = (("https:" == document.location.protocol) ? "https://wonderworks.ir/analytic/piwik/" : "http://wonderworks.ir/analytic/piwik/");
 			document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
 		</script>
@@ -78,9 +78,9 @@ Copyright © 2013, built by <a href="https://github.com/qolami">@qolami</a> & <a
 			piwikTracker.trackPageView();
 			piwikTracker.enableLinkTracking();
 			} catch( err ) {}
-		</script>
+		</script> -->
 
-		<script type="text/javascript">
+		<!-- <script type="text/javascript">
 			//<![CDATA[
 			var owa_baseUrl = 'http://wonderworks.ir/analytic/owa/';
 			var owa_cmds = owa_cmds || [];
@@ -88,7 +88,7 @@ Copyright © 2013, built by <a href="https://github.com/qolami">@qolami</a> & <a
 			owa_cmds.push(['trackPageView']);
 			owa_cmds.push(['trackClicks']);
 			owa_cmds.push(['trackDomStream']);
-
+		
 			(function() {
 			       var _owa = document.createElement('script'); _owa.type = 'text/javascript'; _owa.async = true;
 			       owa_baseUrl = ('https:' == document.location.protocol ? window.owa_baseSecUrl || owa_baseUrl.replace(/http:/, 'https:') : owa_baseUrl );
@@ -96,6 +96,6 @@ Copyright © 2013, built by <a href="https://github.com/qolami">@qolami</a> & <a
 			       var _owa_s = document.getElementsByTagName('script')[0]; _owa_s.parentNode.insertBefore(_owa, _owa_s);
 			}());
 			//]]>
-		</script>
+		</script> -->
 	</body>
 </html>
