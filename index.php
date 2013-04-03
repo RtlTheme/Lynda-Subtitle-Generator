@@ -45,7 +45,7 @@ $url = $_GET['url'] or e('Insert a URL to generate subtitles', TRUE);
 $api = isset($_GET['api']) ? !!$_GET['api'] : FALSE;
 
 # No time limit
-set_time_limit(0);
+@set_time_limit(0);
 @ini_set("max_execution_time", 0);
 
 # Load library
