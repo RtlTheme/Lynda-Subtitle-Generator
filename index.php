@@ -3,12 +3,12 @@
  * Lynda Subtitle Generator - PHP application
  * https://github.com/qolami/Lynda-Subtitle-Generator
  * Copyright 2013 Hashem Qolami <hashem@qolami.com>
- * Version 0.9.2
+ * Version 0.9.3
  * Released under the MIT and GPL licenses.
  */
 
 # App version
-$version = '0.9.2';
+$version = '0.9.3';
 
 if (! isset($_GET['url'])) {
 	include 'inc/view.php';
@@ -141,14 +141,15 @@ function process_chapter($e, $path, $chno)
 
 		for ($i = 0; $i < count($rows)-1;) {
 			$start = $rows[$i]->plaintext;
-			$end = $rows[$i+1]->plaintext;
-			$text = trim($rows[$i]->next_sibling()->plaintext);
+			$lms   = explode(':', $rows[$i+1]->plaintext);
+			$lsec  = $lms[1] - 1;
+			$lsec  = $lsec<10?"0$lsec":$lsec;
+			$end   = "$lms[0]:$lsec";
+			$text  = trim($rows[$i]->next_sibling()->plaintext);
 			$i++;
-			$sub .= "$i
-00:{$start},000 --> 00:{$end},000
-{$text}
-
-";
+			$sub .= "$i".PHP_EOL;
+			$sub .= "00:{$start},000 --> 00:{$end},990".PHP_EOL;
+			$sub .= "$text".PHP_EOL.PHP_EOL;
 		}
 		
 		to_srt( $sub, $dir, str_pure($title) );
