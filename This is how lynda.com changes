@@ -1,0 +1,27 @@
+Hi !
+
+I am ACELY from China,and I'm doing lynda subtitles for nearly 2 years.
+This is my website  www.cgsub.com
+I wrote a desktop JAVA app to download and transcode data into .srt files.
+And also wrote a translating engine to batch translate these data into Chinese
+(Not accurate,but since most Chinese can't read English,so it may do some help).
+
+Recently lynda.com changes,as you know.
+And I've been tracing Lynda's URL allalong,here is what I found:
+
+ADD "sdk/" in URL after "http://www.lynda.com/"
+Means an URL like this:
+http://www.lynda.com/Photoshop-tutorials/Photoshop-CC-One-One-Mastery/124099-2.html
+should be modifyed like:
+http://www.lynda.com/sdk/Photoshop-tutorials/Photoshop-CC-One-One-Mastery/124099-2.html
+                    ↑↑↑↑↑
+Hola!
+Everything comes back!
+
+Means you guys dont have to change your code AT ALL!
+(Or just a code to automaticlly add "sdk/")
+
+Have a good day!
+
+This is my E-mail:    acely@126.com
+It awesome if we can be friends!
